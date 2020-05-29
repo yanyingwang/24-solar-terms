@@ -23,49 +23,66 @@
 ;; See the current version of the racket style guide here:
 ;; http://docs.racket-lang.org/style/index.html
 
-;; Code here
+
+(define data-2020
+  (hash '小寒 (moment 2020 01 06 05 30 04 28800)
+        '大寒 (moment 2020 01 20 22 54 38 28800)
+        '立春 (moment 2020 02 04 17 03 17 28800)
+        '雨水 (moment 2020 02 19 12 56 58 28800)
+        '惊蛰 (moment 2020 03 05 10 56 51 28800)
+        '春分 (moment 2020 03 20 11 49 35 28800)
+        '清明 (moment 2020 04 04 15 38 08 28800)
+        '谷雨 (moment 2020 04 19 22 45 26 28800)
+        '立夏 (moment 2020 05 05 08 51 21 28800)
+        '小满 (moment 2020 05 20 21 49 15 28800)
+        '芒种 (moment 2020 06 05 12 58 23 28800)
+        '夏至 (moment 2020 06 21 05 43 38 28800)
+        '小暑 (moment 2020 07 06 23 14 25 28800)
+        '大暑 (moment 2020 07 22 16 36 50 28800)
+        '立秋 (moment 2020 08 07 09 06 09 28800)
+        '处暑 (moment 2020 08 22 23 44 53 28800)
+        '白露 (moment 2020 09 07 12 08 00 28800)
+        '秋分 (moment 2020 09 22 21 30 36 28800)
+        '寒露 (moment 2020 10 08 03 55 13 28800)
+        '霜降 (moment 2020 10 23 06 59 30 28800)
+        '立冬 (moment 2020 11 07 07 13 53 28800)
+        '小雪 (moment 2020 11 22 04 39 43 28800)
+        '大雪 (moment 2020 12 07 00 09 28 28800)
+        '冬至 (moment 2020 12 21 18 02 18 28800)))
+
+(define 24-solar-term
+  (hash '立春 the-beginning-of-spring
+        '雨水 rain-water
+        '惊蛰 the-waking-of-insects
+        '春分 the-spring-equinox
+        '清明 pure-brightness
+        '谷雨 grain-rain
+        '立夏 the-beginning-of-summer
+        '小满 lesser-fullness-of-grain
+        '芒种 grain-in-beard
+        '夏至 the-summer-solstice
+        '小暑 lesser-heat
+        '大暑 greater-heat
+        '立秋 the-beginning-of-autumn
+        '处暑 the-end-of-heat
+        '白露 white-eew
+        '秋分 the-autumn-equinox
+        '寒露 cold-dew
+        '霜降 frosts-descent
+        '立冬 the-beginning-of-winter
+        '小雪 lesser-snow
+        '大雪 greater-snow
+        '冬至 the-winter-solstice
+        '小寒 lesser-cold
+        '大寒 greater-cold))
+
+(if (= 2020 (->year (now/moment)))
+    (hash-ref data-2020 '立春)
+    'nil)
 
 
+(solar-term-name a-bit-frigid)
 
-
-
-;; (define-struct solar-term (name meaning climate habitude diet farming plant first-period second-period third-period))
-(define-struct 节气 (名字 涵义 气候 习俗 饮食 农事 植物 一侯 二侯 三侯))
-
-(define 小寒 (make-节气
-              "小寒"
-              "小寒，是二十四节气中的第二十三个节气，即太阳到达黄经285°之时，在公历每年1月3日至1月5日之间。小寒标志着开始进入一年中最寒冷的日子，最寒冷的「三九天」多处于小寒节气。"
-              "寒潮 显著降温"
-              '(吃菜饭 南京有小寒吃菜饭的习俗。人们会将糯米与生姜、矮脚黄、咸肉、香肠等做成菜饭食用，以抵御寒冷天气，达到健脾暖胃、温肺散寒的功效。)
-              "蒜苗 韭黄 牛肉 羊肉"
-              "防寒防冻、追施冬肥"
-              "腊梅、山茶、水仙"
-              '(雁北鄉 小寒五日时，大雁避暖，开始向北迁徙。)
-              '(鵲始巢 小寒后十日，喜鹊开始筑巢。)
-              '(雉始雊 小寒后十五日，早春将至，野鸡开始鸣叫。)))
-
-
-
-
-#;(define a-bit-frigid (make-solar-term
-                      "小寒"
-                      "小寒，是二十四节气中的第二十三个节气，即太阳到达黄经285°之时，在公历每年1月3日至1月5日之间。小寒标志着开始进入一年中最寒冷的日子，最寒冷的「三九天」多处于小寒节气。"
-                      "寒潮 显著降温"
-                       "吃菜饭 南京有小寒吃菜饭的习俗。人们会将糯米与生姜、矮脚黄、咸肉、香肠等做成菜饭食用，以抵御寒冷天气，达到健脾暖胃、温肺散寒的功效。"
-                      "蒜苗 韭黄 牛肉 羊肉"
-                      "防寒防冻、追施冬肥"
-                      "腊梅、山茶、水仙"
-                      "小寒五日时，大雁避暖，开始向北迁徙。"
-                      "小寒后十日，喜鹊开始筑巢。"
-                      "小寒后十五日，早春将至，野鸡开始鸣叫。"))
-
-
-
-
-#;(define data
-  (hash
-        )
-  )
 
 
 
