@@ -23,32 +23,9 @@
 ;; See the current version of the racket style guide here:
 ;; http://docs.racket-lang.org/style/index.html
 
-
-(define data-2020
-  (hash '小寒 (moment 2020 01 06 05 30 04 28800)
-        '大寒 (moment 2020 01 20 22 54 38 28800)
-        '立春 (moment 2020 02 04 17 03 17 28800)
-        '雨水 (moment 2020 02 19 12 56 58 28800)
-        '惊蛰 (moment 2020 03 05 10 56 51 28800)
-        '春分 (moment 2020 03 20 11 49 35 28800)
-        '清明 (moment 2020 04 04 15 38 08 28800)
-        '谷雨 (moment 2020 04 19 22 45 26 28800)
-        '立夏 (moment 2020 05 05 08 51 21 28800)
-        '小满 (moment 2020 05 20 21 49 15 28800)
-        '芒种 (moment 2020 06 05 12 58 23 28800)
-        '夏至 (moment 2020 06 21 05 43 38 28800)
-        '小暑 (moment 2020 07 06 23 14 25 28800)
-        '大暑 (moment 2020 07 22 16 36 50 28800)
-        '立秋 (moment 2020 08 07 09 06 09 28800)
-        '处暑 (moment 2020 08 22 23 44 53 28800)
-        '白露 (moment 2020 09 07 12 08 00 28800)
-        '秋分 (moment 2020 09 22 21 30 36 28800)
-        '寒露 (moment 2020 10 08 03 55 13 28800)
-        '霜降 (moment 2020 10 23 06 59 30 28800)
-        '立冬 (moment 2020 11 07 07 13 53 28800)
-        '小雪 (moment 2020 11 22 04 39 43 28800)
-        '大雪 (moment 2020 12 07 00 09 28 28800)
-        '冬至 (moment 2020 12 21 18 02 18 28800)))
+(require gregor
+         (file "./details.rkt"
+               "./moments.rkt"))
 
 (define 24-solar-term
   (hash '立春 the-beginning-of-spring
@@ -65,7 +42,7 @@
         '大暑 greater-heat
         '立秋 the-beginning-of-autumn
         '处暑 the-end-of-heat
-        '白露 white-eew
+        '白露 white-dew
         '秋分 the-autumn-equinox
         '寒露 cold-dew
         '霜降 frosts-descent
