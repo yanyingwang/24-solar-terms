@@ -1,5 +1,5 @@
 
-<img src="https://raw.githubusercontent.com/yanyingwang/24-solar-terms/master/favicon.png" alt="favicon" width="180"/>
+<img src="https://raw.githubusercontent.com/yanyingwang/24-solar-terms/master/favicon.png" alt="favicon" width="400"/>
 
 24-solar-terms
 ==============

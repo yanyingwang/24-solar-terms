@@ -27,6 +27,10 @@
          (file "./details.rkt"
                "./moments.rkt"))
 
+(define (二十四节气)
+  (list 立春 雨水 惊蛰 春分 清明 谷雨 立夏 小满 芒种 夏至 小暑 大暑 立秋 处暑 白露 秋分 寒露 霜降 立冬 小雪 大雪 冬至 小寒 大寒))
+
+
 (define 24-solar-term
   (hash '立春 the-beginning-of-spring
         '雨水 rain-water
@@ -52,6 +56,7 @@
         '冬至 the-winter-solstice
         '小寒 lesser-cold
         '大寒 greater-cold))
+
 
 (if (= 2020 (->year (now/moment)))
     (hash-ref data-2020 '立春)
