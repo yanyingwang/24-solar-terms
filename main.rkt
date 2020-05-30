@@ -1,4 +1,4 @@
-#lang racket/base
+#lang at-exp racket/base
 
 (module+ test
   (require rackunit))
@@ -19,51 +19,49 @@
 ;;
 ;; Some users like to add a `private/` directory, place auxiliary files there,
 ;; and require them in `main.rkt`.
-;;
 ;; See the current version of the racket style guide here:
 ;; http://docs.racket-lang.org/style/index.html
 
 (require gregor
-         (file "./details.rkt"
-               "./moments.rkt"))
+         racket/format
+         racket/list
+         (file "details.rkt")
+         (file "moments.rkt"))
 
-(define (二十四节气)
+
+(struct 时节 (节气 时间)
+  #:methods gen:custom-write
+  [(define (write-proc instan port mode)
+     (define 节 (时节-节气 instan))
+     (define 时 (时节-时间 instan))
+     (define 初候时 时)
+     (define 二候时 (+days 初候时 5))
+     (define 三候时 (+days 二候时 5))
+
+     (define 节名 (节气-名字 节))
+     (define 初候名 (first (hash-keys (节气-候应 节))))
+     (define 二候名 (second (hash-keys (节气-候应 节))))
+     (define 三候名 (third (hash-keys (节气-候应 节))))
+
+     (define 初候时名 (~t 初候时 "y-MM-dd"))
+     (define 二候时名 (~t 二候时 "y-MM-dd"))
+     (define 三候时名 (~t 三候时 "y-MM-dd"))
+     (display @~a{#<时节-@|节名|: @|初候名|@|初候时名| @|二候名|@|二候时名| @|三候名|@|三候时名|>}
+              port))])
+
+(define (创建时节 此节气 此年份)
+  (define 此时间 (hash-ref (hash-ref data 此年份) (节气-名字 此节气)))
+  (时节 此节气 此时间))
+
+(创建时节 冬至 2020)
+
+(define (二十四节气 年)
   (list 立春 雨水 惊蛰 春分 清明 谷雨 立夏 小满 芒种 夏至 小暑 大暑 立秋 处暑 白露 秋分 寒露 霜降 立冬 小雪 大雪 冬至 小寒 大寒))
 
 
-(define 24-solar-term
-  (hash '立春 the-beginning-of-spring
-        '雨水 rain-water
-        '惊蛰 the-waking-of-insects
-        '春分 the-spring-equinox
-        '清明 pure-brightness
-        '谷雨 grain-rain
-        '立夏 the-beginning-of-summer
-        '小满 lesser-fullness-of-grain
-        '芒种 grain-in-beard
-        '夏至 the-summer-solstice
-        '小暑 lesser-heat
-        '大暑 greater-heat
-        '立秋 the-beginning-of-autumn
-        '处暑 the-end-of-heat
-        '白露 white-dew
-        '秋分 the-autumn-equinox
-        '寒露 cold-dew
-        '霜降 frosts-descent
-        '立冬 the-beginning-of-winter
-        '小雪 lesser-snow
-        '大雪 greater-snow
-        '冬至 the-winter-solstice
-        '小寒 lesser-cold
-        '大寒 greater-cold))
+;; (define a (二十四节气 2020))
 
-
-(if (= 2020 (->year (now/moment)))
-    (hash-ref data-2020 '立春)
-    'nil)
-
-
-(solar-term-name a-bit-frigid)
+;; (二十四节气-春分 a)
 
 
 
