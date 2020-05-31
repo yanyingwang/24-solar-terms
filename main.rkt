@@ -29,7 +29,7 @@
          (file "details.rkt")
          (file "moments.rkt"))
 
-(provide 二十四时节
+(provide 二十四时节 ; 七十二时候
          二十四节气)
 
 
@@ -42,6 +42,7 @@
      (define 二候时 (+days 初候时 5))
      (define 三候时 (+days 二候时 5))
      (define 节名 (节气-名字 节))
+     (define 节排位 (节气-排位 节))
      (define 初候名 (first (dict-keys (节气-候应 节))))
      (define 二候名 (second (dict-keys (节气-候应 节))))
      (define 三候名 (third (dict-keys (节气-候应 节))))
@@ -49,7 +50,7 @@
      (define 初候时名 (~t 初候时 "yyyy-MM-dd"))
      (define 二候时名 (~t 二候时 "yyyy-MM-dd"))
      (define 三候时名 (~t 三候时 "yyyy-MM-dd"))
-     (display @~a{#<时节-@|节名|@时名 (@|初候名|@初候时名 @|二候名|@二候时名 @|三候名|@三候时名)>}
+     (display @~a{#<时节-@|节名|@时名(#@节排位)-(@|初候名|@初候时名 @|二候名|@二候时名 @|三候名|@三候时名)>}
               port))])
 
 (define (创建时节 此节气 此年份)
@@ -57,10 +58,27 @@
   (时节 此节气 此时间))
 
 (define (二十四时节 [年份 (->year (today))])
-  (map (lambda (节气)
-         (创建时节 节气 年份))
+  (map (lambda (其节气)
+         (创建时节 其节气 年份))
    二十四节气))
 
+(define (下一时节 此时节)
+  (define 彼节气 (下一节气 (时节-节气 此时节)))
+  (findf (lambda (其)
+           (equal? 彼节气 (时节-节气 其)))
+         (二十四时节)))
+
+(define (上一时节 此时节)
+  (define 彼节气 (上一节气 (时节-节气 此时节)))
+  (findf (lambda (其)
+           (equal? 彼节气 (时节-节气 其)))
+         (二十四时节)))
+
+
+(define 今时节 (first (二十四时节)))
+(define 下一时节 (first (二十四时节)))
+(define 今节气 (时节-节气 今时节))
+(define 下节气 (时节-节气 下一时节))
 
 (define html
   @~a{
@@ -70,18 +88,15 @@
       <meta charset="utf-8" />
       <meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible" />
       <meta content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover" name="viewport" />
-      <title>小寒 · 雁北鄉</title><meta name="csrf-param" content="authenticity_token" />
-      <meta name="csrf-token" content="8LFdkHCGt1jwI2E4+2s4Ygur7KpUtK6b2YsfY1nFu0zS/SS1DTdEud8lIdta8Y46egdxxRo1ygHRUS7vqJhVrA==" />
+      <title>@(节气-名字 今节气) · @(car (first (节气-候应 今节气)))</title>
       <link rel="stylesheet" media="all" href="assets/main.css" />
       </head>
 
-
       <body class="terms" ontouchstart="">
       <div class="term-head">
-      <!-- <img src="http://pic.yupoo.com/fotomag/8e294495/d33d9a73.jpg" /> -->
       <div class="main-cntr">
       <div class="title-cntr">
-      <h1 class="title">小寒</h1>
+      <h1 class="title">@(节气-名字 今节气)</h1>
       <h4 class="date">1 月 6 日 ≀ 1 月 19 日</h4></div>
       </div>
       </div>
@@ -90,22 +105,24 @@
 
       <h3>初候 · 1月6日~1月10日</h3>
       <h2>雁北鄉</h2>
-
       <p class="mt20">小寒五日时，大雁避暖，开始向北迁徙。 </p>
+
       <hr />
-      <p>小寒，是二十四节气中的第二十三个节气，即太阳到达黄经285°之时，在公历每年1月3日至1月5日之间。小寒标志着开始进入一年中最寒冷的日子，最寒冷的「三九天」多处于小寒节气。 </p>
+      <p>@(节气-释义 今节气) </p>
 
       <dl class="terms-fields clearfix">
       <dt>气候</dt>
-      <dd>寒潮 显著降温</dd>
+      <dd>@(节气-气候 今节气)</dd>
       <dt>习俗</dt>
-      <dd>吃菜饭</dd>
+      <dd>@(string-join (hash-keys (节气-习俗 今节气)) " ")</dd>
       <dt>饮食</dt>
-      <dd>蒜苗 韭黄 牛肉 羊肉</dd>
+      <dd>@(节气-饮食 今节气)
+
       <dt>农事</dt>
-      <dd>防寒防冻、追施冬肥</dd>
+      <dd>@(节气-农事 今节气)</dd>
+
       <dt>植物</dt>
-      <dd>腊梅、山茶、水仙</dd>
+      <dd>@(节气-植物 今节气)</dd>
       </dl>
       <hr />
 
@@ -145,7 +162,7 @@
       <div class="next-term">
       <!-- <img class="bg" src="http://pic.yupoo.com/fotomag/c25c3f59/10512d74.jpg" /> -->
       <div class="text">
-      <div class="title">下一個節气 · 大寒</div>
+      <div class="title">下一個節气 · @(节气-名字 下节气) </div>
       <div class="date">1 / 20 ~ 2 / 3</div>
       </div>
       </div>
