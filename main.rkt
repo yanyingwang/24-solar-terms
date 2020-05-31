@@ -25,8 +25,12 @@
 (require gregor
          racket/format
          racket/list
+         racket/dict
          (file "details.rkt")
          (file "moments.rkt"))
+
+(provide 二十四时节
+         二十四节气)
 
 
 (struct 时节 (节气 时间)
@@ -37,33 +41,25 @@
      (define 初候时 时)
      (define 二候时 (+days 初候时 5))
      (define 三候时 (+days 二候时 5))
-
      (define 节名 (节气-名字 节))
-     (define 初候名 (first (hash-keys (节气-候应 节))))
-     (define 二候名 (second (hash-keys (节气-候应 节))))
-     (define 三候名 (third (hash-keys (节气-候应 节))))
-
-     (define 初候时名 (~t 初候时 "y-MM-dd"))
-     (define 二候时名 (~t 二候时 "y-MM-dd"))
-     (define 三候时名 (~t 三候时 "y-MM-dd"))
-     (display @~a{#<时节-@|节名|: @|初候名|@|初候时名| @|二候名|@|二候时名| @|三候名|@|三候时名|>}
+     (define 初候名 (first (dict-keys (节气-候应 节))))
+     (define 二候名 (second (dict-keys (节气-候应 节))))
+     (define 三候名 (third (dict-keys (节气-候应 节))))
+     (define 时名 (~t 时 "HH:mm:ss"))
+     (define 初候时名 (~t 初候时 "yyyy-MM-dd"))
+     (define 二候时名 (~t 二候时 "yyyy-MM-dd"))
+     (define 三候时名 (~t 三候时 "yyyy-MM-dd"))
+     (display @~a{#<时节-@|节名|@时名 (@|初候名|@初候时名 @|二候名|@二候时名 @|三候名|@三候时名)>}
               port))])
 
 (define (创建时节 此节气 此年份)
   (define 此时间 (hash-ref (hash-ref data 此年份) (节气-名字 此节气)))
   (时节 此节气 此时间))
 
-(创建时节 冬至 2020)
-
-(define (二十四节气 年)
-  (list 立春 雨水 惊蛰 春分 清明 谷雨 立夏 小满 芒种 夏至 小暑 大暑 立秋 处暑 白露 秋分 寒露 霜降 立冬 小雪 大雪 冬至 小寒 大寒))
-
-
-;; (define a (二十四节气 2020))
-
-;; (二十四节气-春分 a)
-
-
+(define (二十四时节 [年份 (->year (today))])
+  (map (lambda (节气)
+         (创建时节 节气 年份))
+   二十四节气))
 
 
 (define html

@@ -1,9 +1,15 @@
 
 <img src="https://raw.githubusercontent.com/yanyingwang/24-solar-terms/master/favicon.png" alt="favicon" width="400"/>
 
-24-solar-terms
+24-solar-terms - 二十四节气
 ==============
-24节气
+
+
+春雨惊春清谷天，夏满芒夏暑相连。
+秋处露秋寒霜降，冬雪雪冬小大寒。
+每月两节不变更，最多相差一两天。
+上半年来六廿一，下半年是八廿三。
+
 
 https://www.youtube.com/watch?time_continue=59&v=apzXgM9Lc0c&feature=emb_title
 https://www.youtube.com/watch?v=qTrd010vMp8
