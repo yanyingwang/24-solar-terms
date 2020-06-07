@@ -11,6 +11,9 @@
 上半年来六廿一，下半年是八廿三。<br/>
 
 
+docs:  https://yanyingwang.github.io/24-solar-terms
+
+
 https://www.youtube.com/watch?time_continue=59&v=apzXgM9Lc0c&feature=emb_title
 https://www.youtube.com/watch?v=qTrd010vMp8
 
