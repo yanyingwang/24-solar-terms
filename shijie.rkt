@@ -4,6 +4,7 @@
          racket/format
          racket/list
          racket/dict
+         (file "houying.rkt")
          (file "jieqi.rkt")
          (file "data.rkt"))
 
@@ -21,9 +22,9 @@
      (define 三候时 (+days 二候时 5))
      (define 节名 (节气-名字 节))
      (define 节排位 (节气-排位 节))
-     (define 初候名 (first (dict-keys (节气-候应 节))))
-     (define 二候名 (second (dict-keys (节气-候应 节))))
-     (define 三候名 (third (dict-keys (节气-候应 节))))
+     (define 初候名 (候应-名字 (节气->初候 节)))
+     (define 二候名 (候应-名字 (节气->二候 节)))
+     (define 三候名 (候应-名字 (节气->三候 节)))
      (define 时名 (~t 时 "HH:mm:ss"))
      (define 初候时名 (~t 初候时 "yyyy-MM-dd"))
      (define 二候时名 (~t 二候时 "yyyy-MM-dd"))

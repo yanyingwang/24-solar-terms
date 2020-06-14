@@ -26,14 +26,17 @@
          racket/format
          racket/list
          racket/dict
-         (file "houying.rkt")
-         (file "jieqi.rkt")
+         ;; (file "houying.rkt")
+         ;; (file "jieqi.rkt")
          ;; (file "shijie.rkt")
+         ;; (file "shihou.rkt")
          )
 
-(provide 七十二候应
-         二十四节气
+(provide
+         ;; 二十四节气
          ;; 二十四时节
+         ;; 七十二候应
+         ;; 七十二时候
          )
 
 
