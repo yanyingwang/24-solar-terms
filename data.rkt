@@ -1,9 +1,14 @@
 #lang at-exp racket/base
 
 (require gregor)
-(provide data)
+(provide data
+         ->时间)
 
 ;; (struct 节气始时 (小寒 大寒 立春 雨水 惊蛰 春分 清明 谷雨 立夏 小满 芒种 夏至 小暑 大暑 立秋 处暑 白露 秋分 寒露 霜降 立冬 小雪 大雪 冬至 ))
+
+
+(define (->时间 某节气名 某年)
+  (hash-ref (hash-ref data 某年) 某节气名))
 
 (define data (hash 2020
                    (hash '小寒 (moment 2020 1 6 05 30 00 28800)

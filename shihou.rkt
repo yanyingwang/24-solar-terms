@@ -4,51 +4,36 @@
          racket/format
          racket/list
          racket/dict
+         (file "data.rkt")
          (file "houying.rkt")
-         (file "shijie.rkt"))
+         (file "jieqi.rkt"))
 
-(provide 七十二时候
-         上一时候
-         下一时候)
+(provide 七十二时候)
 
 
-;; (struct 时候 (候应 时间)
-;;   #:methods gen:custom-write
-;;   [(define (write-proc instan port mode)
-;;      (define 节 (时节-节气 instan))
-;;      (define 时 (时节-时间 instan))
-;;      (define 初候时 时)
-;;      (define 二候时 (+days 初候时 5))
-;;      (define 三候时 (+days 二候时 5))
-;;      (define 节名 (节气-名字 节))
-;;      (define 节排位 (节气-排位 节))
-;;      (define 初候名 (候应-名字 (first (节气-候应 节))))
-;;      (define 二候名 (候应-名字 (second (节气-候应 节))))
-;;      (define 三候名 (候应-名字 (third (节气-候应 节))))
-;;      (define 时名 (~t 时 "HH:mm:ss"))
-;;      (define 初候时名 (~t 初候时 "yyyy-MM-dd"))
-;;      (define 二候时名 (~t 二候时 "yyyy-MM-dd"))
-;;      (define 三候时名 (~t 三候时 "yyyy-MM-dd"))
-;;      (display @~a{#<时节-@|节名|@时名(#@节排位)-(@|初候名|@初候时名 @|二候名|@二候时名 @|三候名|@三候时名)>}
-;;               port))])
+(struct 时候 (候应 时间)
+  #:methods gen:custom-write
+  [(define (write-proc 本 port mode)
+     (define 其候应 (时候-候应 本))
+     (define 其候应之名 (候应-名字 其候应))
+     (define 其候应之排位 (候应-排位 其候应))
+     (define 其候应之相对排位 (候应-相对排位 其候应))
+     (define 其时间 (时候-时间 本))
+     (define 其时间之名 (~t 其时间 "yyyy-MM-dd/HH:mm:ss"))
+     (display @~a{#<时候-@|其候应之名|(#@|其候应之排位|/#@|其候应之相对排位|)(@|其时间之名|)>}
+              port))])
 
-(define (创建时候 此候应 此年份)
-  (define 此时间 (hash-ref (hash-ref data 此年份) (节气-名字 此节气)))
-  (时节 此节气 此时间))
+(define (创建时候 某候应 某年)
+  (define 其节气 (候应->节气 某候应))
+  (define 其节气之时间 (->时间 (节气-名字 其节气) 某年))
+  (define 某候应之时间
+    (case (候应-相对排位 某候应)
+      [(1) 其节气之时间] ; 初候是也
+      [(2) (+days 其节气之时间 5)] ; 二候是也
+      [(3) (+days 其节气之时间 10)])) ;三候是也
+  (时候 某候应 某候应之时间))
 
-(define (二十四时节 [年份 (->year (today))])
-  (map (lambda (其节气)
-         (创建时节 其节气 年份))
-   二十四节气))
-
-(define (下一时节 此时节)
-  (define 彼节气 (下一节气 (时节-节气 此时节)))
-  (findf (lambda (其)
-           (equal? 彼节气 (时节-节气 其)))
-         (二十四时节)))
-
-(define (上一时节 此时节)
-  (define 彼节气 (上一节气 (时节-节气 此时节)))
-  (findf (lambda (其)
-           (equal? 彼节气 (时节-节气 其)))
-         (二十四时节)))
+(define (七十二时候 [某年 (->year (today))])
+  (map (lambda (某候应)
+         (创建时候 某候应 某年))
+   七十二候应))
