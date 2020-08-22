@@ -24,6 +24,7 @@
 
 @itemlist[
 @item{source code: @url["https://github.com/yanyingwang/24-solar-terms"]}
+@item{wiki: @url["https://en.wikipedia.org/wiki/Solar_term"]}
 @item{refs: @hyperlink["http://www.yanying.wang/2019/12/%E7%94%B1%E6%B1%89%E8%AF%AD%E7%BC%96%E7%A8%8B%E6%89%80%E6%83%B3%E5%88%B0%E7%9A%84.html" "check my post"]}
 ]
 

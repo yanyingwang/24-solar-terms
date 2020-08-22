@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        racket-version: [ "7.7" ]
+        racket-version: [ "7.8" ]
         racket-variant: [ "regular" ]
     name: main
     steps:
@@ -24,7 +24,7 @@ jobs:
           raco pkg install --auto
       - name: build docs
         run: |
-          raco scribble --dest docs --dest-name index scribblings/24-solar-terms.scrbl
+          raco scribble --dest docs --dest-name index ++main-xref-in --redirect-main https://docs.racket-lang.org/ scribblings/24-solar-terms.scrbl
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v1.2.5
