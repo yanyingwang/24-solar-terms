@@ -6,7 +6,9 @@
          racket/dict
          (file "data.rkt")
          (file "houying.rkt")
-         (file "jieqi.rkt"))
+         (file "jieqi.rkt")
+         (file "convert.rkt")
+         )
 
 (provide 七十二时候)
 

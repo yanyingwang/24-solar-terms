@@ -6,6 +6,7 @@
          racket/dict
          (file "houying.rkt")
          (file "jieqi.rkt")
+         (file "convert.rkt")
          (file "data.rkt"))
 
 (provide 二十四时节
