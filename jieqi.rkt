@@ -30,7 +30,7 @@
               习俗)
   #:methods gen:custom-write
   [(define (write-proc 本 port mode)
-     (display @~a{#<节气 @(节气-名字 本)#@(节气-排位 本) 释义：@(~a (节气-释义 本) #:max-width 10 #:limit-marker "...") 气候：饮食：农事：植物... 习俗：@(string-join (hash-keys (节气-习俗 本)))>}
+     (display @~a{#<节气 @(节气-名字 本)#@(节气-排位 本) @(节气-气候 本)>}
               port))])
 
 (define 立春
